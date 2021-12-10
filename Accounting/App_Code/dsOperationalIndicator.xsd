@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsOperationalIndicator" targetNamespace="http://tempuri.org/dsOperationalIndicator.xsd" xmlns:mstns="http://tempuri.org/dsOperationalIndicator.xsd" xmlns="http://tempuri.org/dsOperationalIndicator.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Constring" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="Constring (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Constring.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="allappsTableAdapter" GeneratorDataComponentClassName="allappsTableAdapter" Name="allapps" UserDataComponentName="allappsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Constring (Web.config)" DbObjectName="Quest.dbo.QUEST_APPLICATION" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="GetData">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select CUSTOMER_TYPE, COUNT(ID) as loanCount, COUNT(distinct CUSTOMER_NUMBER) as custCount, SUM(FIN_AMT) as grpValue from QUEST_APPLICATION where (REPAID=0 or REPAID IS NULL) group by CUSTOMER_TYPE</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="CUSTOMER_TYPE" DataSetColumn="CUSTOMER_TYPE" />
+              <Mapping SourceColumn="loanCount" DataSetColumn="loanCount" />
+              <Mapping SourceColumn="custCount" DataSetColumn="custCount" />
+              <Mapping SourceColumn="grpValue" DataSetColumn="grpValue" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsOperationalIndicator" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="dsOperationalIndicator" msprop:Generator_UserDSName="dsOperationalIndicator">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="allapps" msprop:Generator_TableClassName="allappsDataTable" msprop:Generator_TableVarName="tableallapps" msprop:Generator_TablePropName="allapps" msprop:Generator_RowDeletingName="allappsRowDeleting" msprop:Generator_RowChangingName="allappsRowChanging" msprop:Generator_RowEvHandlerName="allappsRowChangeEventHandler" msprop:Generator_RowDeletedName="allappsRowDeleted" msprop:Generator_UserTableName="allapps" msprop:Generator_RowChangedName="allappsRowChanged" msprop:Generator_RowEvArgName="allappsRowChangeEvent" msprop:Generator_RowClassName="allappsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CUSTOMER_TYPE" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER_TYPE" msprop:Generator_ColumnPropNameInRow="CUSTOMER_TYPE" msprop:Generator_ColumnPropNameInTable="CUSTOMER_TYPEColumn" msprop:Generator_UserColumnName="CUSTOMER_TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="loanCount" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnloanCount" msprop:Generator_ColumnPropNameInRow="loanCount" msprop:Generator_ColumnPropNameInTable="loanCountColumn" msprop:Generator_UserColumnName="loanCount" type="xs:int" minOccurs="0" />
+              <xs:element name="custCount" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columncustCount" msprop:Generator_ColumnPropNameInRow="custCount" msprop:Generator_ColumnPropNameInTable="custCountColumn" msprop:Generator_UserColumnName="custCount" type="xs:int" minOccurs="0" />
+              <xs:element name="grpValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columngrpValue" msprop:Generator_ColumnPropNameInRow="grpValue" msprop:Generator_ColumnPropNameInTable="grpValueColumn" msprop:Generator_UserColumnName="grpValue" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

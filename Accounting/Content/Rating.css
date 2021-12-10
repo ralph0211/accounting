@@ -1,0 +1,223 @@
+﻿/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    /*max-width: 280px;*/
+}
+
+article{
+    background-color:#EEEEEE;
+    width:100%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:40px;
+    padding-bottom:20px;
+}
+
+#lgnArticle{
+    background-color:#EEEEEE;
+    width:50%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:40px;
+    padding-bottom:20px;
+}
+
+hr{
+    color:#7C8D59;
+    width:95%;
+}
+
+/* Set padding to display errors that occur during databinding */
+.padding-error {
+    padding-top: 20px;
+}
+
+.article-header{
+    background-color:#023E5A;
+    width:100%;
+    Font:'Cambria';
+    Font-Size:Large;
+    color:white;
+    padding-left:2%;
+    padding-bottom:4px;
+    text-align:left;
+}
+
+.sectionHeading{
+    background-color: #023E7F;
+    color: #FFF;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.navButton {
+    background-color: Navy;
+    color: #FFF;
+    font-family: Cambria;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.disabledNavButton {
+    background-color: Silver;
+    color: #FFF;
+    font-family: Cambria;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.activeView {
+    background-color: navy;
+    color: White;
+    font-family: Cambria;
+    font-weight: bolder;
+}
+
+.inactiveView {
+    background-color: Silver;
+    color: #FFF;
+    font-family: Cambria;
+}
+
+.horizon{
+    padding-top:20px;
+    width:100%
+}
+
+.left-label{
+    width:18%;
+    text-align:left;
+    display: inline-block;
+}
+
+.right-input{
+    width:28%;
+    display: inline-block;
+    padding-left:2%;
+    text-align:left;
+}
+
+.full-center{
+    display: table;
+    /*margin-left:auto;
+    margin-right:auto;*/
+    margin: 0 auto;
+    text-align:center;
+}
+
+.hr-separator{
+    padding-top:20px;
+}
+
+.label-font{
+    font: Cambria;
+    color: #555555;
+}
+
+.datepicker{
+}
+
+.ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;
+    max-height: 145px;
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+
+.jqbutton{
+    font-size: 11px !important;
+}
+
+.jqselect{
+    font-size: 62.5% !important;
+    min-width:200px;
+}
+
+select{
+    min-width:150px;
+}
+
+select option{
+    font-size: 1em;
+	margin: 0.1em 0 0 0;
+	height: auto;
+	border: 0;
+}
+
+@media only screen and (max-width: 767px) {
+    .nofloat {
+        float: none;
+        padding: 10px 15px;
+    }
+}
+
+.Grid {
+    background-color: #fff;
+    margin: 5px 0 10px 0;
+    border: solid 1px #525252;
+    border-collapse:collapse;
+    font-family:Calibri;
+    color: #474747;
+}
+.Grid td {
+      padding: 2px;
+      border: solid 1px #c1c1c1;
+}
+.Grid th  {
+      padding : 4px 2px;
+      color: #fff;
+      background: #363670 url(../Images/grid-header.png) repeat-x top;
+      border-left: solid 1px #525252;
+      font-size: 0.9em;
+}
+.Grid .alt {
+      background: #c2d1f3 /*#fcfcfc url(/Images/grid-alt.png) repeat-x top*/;
+      color:#030223;
+}
+.Grid .pgr {
+    background: #363670 url(../Images/grid-pgr.png) repeat-x top;
+}
+.Grid .pgr table {
+    margin: 3px 0;
+}
+.Grid .pgr td {
+    border-width: 0;
+    padding: 0 6px;
+    border-left: solid 1px #666;
+    font-weight: bold;
+    color: #fff;
+    line-height: 12px;
+}  
+.Grid .pgr a {
+    color: Gray;
+    text-decoration: none;
+}
+.Grid .pgr a:hover {
+    color: #000;
+    text-decoration: none;
+}
+.Repeater {
+    background-color: #fff;
+    font-family:Calibri;
+    color: #474747;
+}
+.Repeater-alt {
+    background-color: #c2d1f3;
+    font-family:Calibri;
+    color: #030223;
+}
+.Repeater th  {
+      padding : 4px 2px;
+      color: #fff;
+      background: #363670 url(../Images/grid-header.png) repeat-x top;
+      border-left: solid 1px #525252;
+      font-size: 0.9em;
+}
+/*.dropdown-menu{
+    background-color: red;
+}*/

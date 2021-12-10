@@ -1,0 +1,229 @@
+﻿<%@ Master Language="VB" CodeFile="UnclickableLogo.master.vb" Inherits="UnclickableLogo" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>360 Credit Management System</title>
+    <script type="text/javascript">
+        setTimeout(function () { alert("Your session has expired!"); window.location = 'Logout.aspx'; }, 45000 * 60);
+        window.history.forward(1);
+    </script>
+    <%--<link rel="stylesheet" href="css/360.css" type="text/css" />--%>
+    <link href="Content/grid.min.css" rel="stylesheet" type="text/css" />
+    <%--<link href="Content/grid2.css" rel="stylesheet" type="text/css" />--%>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/themes/redmond/jquery-ui.theme.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="Content/chosen.min.css" rel="stylesheet" />
+    <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
+    <link href="Content/Pagination.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .panel-heading {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .panel-body {
+            background-color: #EEEEEE;
+        }
+
+        .panel-title a {
+            font-weight: bold;
+            width: 100%;
+            display: block;
+            padding: 10px 15px;
+            margin: -10px -15px;
+        }
+
+        .control-label {
+            /* text-align:right; */
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .row {
+            margin-bottom: 3px;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        ul.ui-autocomplete {
+            list-style: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            margin-left: 5px;
+            font-size: small;
+            max-width: 500px;
+        }
+
+        .ui-autocomplete-loading {
+            background: url('~/Images/loading.gif') no-repeat right center;
+        }
+
+        .dropdown-menu td {
+            border-bottom: solid 1px #dadada;
+        }
+    </style>
+    <link rel="shortcut icon" href="~/favicon.ico" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
+            <Scripts>
+                <asp:ScriptReference Path="~/Scripts/jquery-2.2.3.min.js" />
+                <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery-ui-1.11.4.min.js" />
+                <asp:ScriptReference Path="~/Scripts/bootstrap-datepicker.min.js" />
+                <%--<asp:ScriptReference Path="~/Scripts/jquery.validate.min.js" />--%>
+                <asp:ScriptReference Path="~/Scripts/bootbox.min.js" />
+                <asp:ScriptReference Path="~/Scripts/noty/jquery.noty.js" />
+                <asp:ScriptReference Path="~/Scripts/noty/layouts/top.js" />
+                <asp:ScriptReference Path="~/Scripts/noty/layouts/topCenter.js" />
+                <asp:ScriptReference Path="~/Scripts/noty/layouts/inline.js" />
+                <asp:ScriptReference Path="~/Scripts/noty/layouts/center.js" />
+                <asp:ScriptReference Path="~/Scripts/noty/themes/default.js" />
+                <asp:ScriptReference Path="~/Scripts/noty/themes/relax.js" />
+                <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
+                <asp:ScriptReference Path="~/Scripts/360.min.js" />
+                <asp:ScriptReference Path="~/assets/global/plugins/jquery-idle-timeout/jquery.idletimeout.js" />
+                <asp:ScriptReference Path="~/assets/global/plugins/jquery-idle-timeout/jquery.idletimer.js" />
+                <asp:ScriptReference Path="~/assets/pages/scripts/ui-idletimeout.min.js" />
+            </Scripts>
+        </asp:ScriptManager>
+        <div style="width: 70%;" class="center-block">
+            <div class="row" style="height: 20px;"></div>
+            <div>
+                <div class="stayStill" style="z-index: 10; background-color: white;">
+                    <div class="row">
+                        <div class="col-xs-3 pull-left">
+                            <asp:Image ID="IMG" runat="server" ImageUrl="images/escrow.png" Height="45px" />
+                        </div>
+                        <div class="col-xs-6 text-center" id="header-sm" style="vertical-align: central; margin-top: 15px; visibility: hidden;">
+                            <p
+                                style="font-family: 'Palatino Linotype'; font-size: x-large; color: #336699;">
+                                360&#176; Credit Management System
+                            </p>
+                        </div>
+                        <div class="col-xs-3 pull-right">
+                            <asp:Label ID="lblSessionID" runat="server" Text="" Visible="False"></asp:Label>
+                            <div class="col-xs-12">
+                                <asp:Image ID="Image2" CssClass="pull-right" runat="server" Height="45px" ImageUrl="images/escrow.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6 pull-right">
+                            <div class="col-xs-12 text-right">
+                                <asp:LoginView ID="LoginView1" runat="server">
+                                    <LoggedInTemplate>
+                                        <span class="glyphicon glyphicon-user small"></span>
+                                        <asp:LoginName ID="LoginName1" runat="server" Font-Size="X-Small" />
+                                        &nbsp;
+                                            <asp:Label ID="Label115" runat="server" Font-Names="Tahoma" Font-Size="X-Small"
+                                                ForeColor="#888888" Text=" | "></asp:Label>
+                                        <span class="fa fa-exchange small"></span>
+                                        <asp:HyperLink ID="lnkChangePwd" runat="server" Font-Names="Tahoma" Font-Size="X-Small" NavigateUrl="ChangePassword.aspx" ForeColor="Blue">Change Password</asp:HyperLink>
+                                    </LoggedInTemplate>
+                                    <AnonymousTemplate>
+                                        <asp:Label ID="Label7" runat="server" Font-Names="Tahoma" Font-Size="X-Small"
+                                            ForeColor="Red" Text="Guest "></asp:Label>
+                                        &nbsp;
+                                    </AnonymousTemplate>
+                                </asp:LoginView>
+                                <asp:Label ID="Label6" runat="server" Font-Names="Tahoma" Font-Size="X-Small"
+                                    ForeColor="#888888" Text=" | "></asp:Label>
+
+                                <span class="glyphicon glyphicon-log-out small"></span>
+                                <asp:LoginStatus ID="LoginStatus2" runat="server" ForeColor="Red"
+                                    LogoutAction="RedirectToLoginPage" LogoutPageUrl="~/Logout.aspx" Font-Size="X-Small" />
+                                <asp:Label ID="Label5" runat="server" Font-Names="Tahoma" Font-Size="X-Small"
+                                    ForeColor="#888888" Text=" | "></asp:Label>
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <asp:Label ID="Label4" runat="server" Font-Names="Tahoma" Font-Size="X-Small"
+                                    ForeColor="#222222" Text="Help"></asp:Label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 center-block" style="background-color: #337ab7; padding-left: 4em;">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-xs-12 center-block">
+                        <p align="center"
+                            style="font-family: 'Palatino Linotype'; font-size: xx-large; color: #336699; border-bottom-style: solid; border-bottom-width: thin;">
+                            360&#176; Credit Management System
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4 class="breadcrumb alert-info">
+                            <asp:Label ID="lblBreadCrumb" runat="server" Text=""></asp:Label>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 center-block">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="label-primary" style="text-align: right; padding-right: 2em; color: white;">
+                escrow systems
+            </footer>
+            <div class="row" style="height: 50px;"></div>
+        </div>
+
+        <div class="modal fade" id="idle-timeout-dialog" data-backdrop="static">
+            <div class="modal-dialog modal-small">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Your session is about to expire.</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <i class="fa fa-warning text-danger"></i>You session will be logged out in
+
+                            <span id="idle-timeout-counter"></span>&nbsp; seconds.
+                        </p>
+                        <p>Do you want to continue your session? </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="idle-timeout-dialog-logout" type="button" class="btn btn-warning btn-sm text-uppercase">No, Logout</button>
+                        <button id="idle-timeout-dialog-keepalive" type="button" class="btn btn-success btn-sm text-uppercase" data-dismiss="modal">Yes, Keep Working</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var div = $('.stayStill');
+            var divHead = $('#header-sm');
+            var start = $(div).offset().top + 4;
+
+            $.event.add(window, "scroll", function () {
+                var p = $(window).scrollTop();
+                $(div).css('position', ((p) > start) ? 'fixed' : 'static');
+                $(div).css('top', ((p) > start) ? '0px' : '');
+                $(div).css('width', ((p) > start) ? '70%' : '100%');
+                $(divHead).css('visibility', ((p) > start) ? 'visible' : 'hidden');
+            });
+
+        });
+    </script>
+</body>
+</html>

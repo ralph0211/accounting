@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsProductivity" targetNamespace="http://tempuri.org/dsProductivity.xsd" xmlns:mstns="http://tempuri.org/dsProductivity.xsd" xmlns="http://tempuri.org/dsProductivity.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Constring" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="Constring (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Constring.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProductivityTableAdapter" GeneratorDataComponentClassName="ProductivityTableAdapter" Name="Productivity" UserDataComponentName="ProductivityTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Constring (Web.config)" DbObjectName="Quest.dbo.QUEST_APPLICATION" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="GetData">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select CREATED_BY, sum(FIN_AMT) as SumApps, COUNT(CREATED_BY) as NoApps from QUEST_APPLICATION group by CREATED_BY</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="CREATED_BY" DataSetColumn="CREATED_BY" />
+              <Mapping SourceColumn="SumApps" DataSetColumn="SumApps" />
+              <Mapping SourceColumn="NoApps" DataSetColumn="NoApps" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsProductivity" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="dsProductivity" msprop:Generator_UserDSName="dsProductivity">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Productivity" msprop:Generator_TableClassName="ProductivityDataTable" msprop:Generator_TableVarName="tableProductivity" msprop:Generator_TablePropName="Productivity" msprop:Generator_RowDeletingName="ProductivityRowDeleting" msprop:Generator_RowChangingName="ProductivityRowChanging" msprop:Generator_RowEvHandlerName="ProductivityRowChangeEventHandler" msprop:Generator_RowDeletedName="ProductivityRowDeleted" msprop:Generator_UserTableName="Productivity" msprop:Generator_RowChangedName="ProductivityRowChanged" msprop:Generator_RowEvArgName="ProductivityRowChangeEvent" msprop:Generator_RowClassName="ProductivityRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CREATED_BY" msprop:Generator_ColumnVarNameInTable="columnCREATED_BY" msprop:Generator_ColumnPropNameInRow="CREATED_BY" msprop:Generator_ColumnPropNameInTable="CREATED_BYColumn" msprop:Generator_UserColumnName="CREATED_BY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SumApps" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSumApps" msprop:Generator_ColumnPropNameInRow="SumApps" msprop:Generator_ColumnPropNameInTable="SumAppsColumn" msprop:Generator_UserColumnName="SumApps" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NoApps" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoApps" msprop:Generator_ColumnPropNameInRow="NoApps" msprop:Generator_ColumnPropNameInTable="NoAppsColumn" msprop:Generator_UserColumnName="NoApps" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

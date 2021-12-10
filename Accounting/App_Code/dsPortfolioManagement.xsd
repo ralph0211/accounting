@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsPortfolioManagement" targetNamespace="http://tempuri.org/dsPortfolioActivity.xsd" xmlns:mstns="http://tempuri.org/dsPortfolioActivity.xsd" xmlns="http://tempuri.org/dsPortfolioActivity.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="Constring" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="Constring (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.Constring.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PortfolioActivityTableAdapter" GeneratorDataComponentClassName="PortfolioActivityTableAdapter" Name="PortfolioActivity" UserDataComponentName="PortfolioActivityTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Constring (Web.config)" DbObjectName="SELECT * FROM (SELECT AVG(fin_tenor) AS AvgLoanTerm FROM QUEST_APPLICATION WHERE DISBURSED_DATE &gt;= @fDate AND DISBURSED_DATE &lt;= @tDate) lt LEFT JOIN (SELECT COUNT(id) AS NoLoansDisbursed,SUM(fin_amt) AS ValueLoansDisbursed FROM QUEST_APPLICATION WHERE DISBURSED_DATE &gt;= @fDate AND DISBURSED_DATE &lt;= @tDate) dis ON 1=1 LEFT JOIN (SELECT COUNT(id) AS TotNoClients FROM CUSTOMER_DETAILS) tot ON 1=1 LEFT JOIN (SELECT COUNT(ID) AS NoOutstandingLoans,COUNT(DISTINCT customer_number) AS NoActiveClients FROM QUEST_APPLICATION qa LEFT JOIN (SELECT Refrence,SUM(debit-credit) AS Bal FROM Accounts_Transactions WHERE ISNUMERIC(refrence)=1 AND account LIKE '213%' AND trxndate&lt;=@tDate GROUP BY Refrence) t ON qa.id=t.refrence WHERE t.bal&gt;0 AND qa.DISBURSED_DATE&gt;=@fDate AND qa.DISBURSED_DATE&lt;=@tDate) o ON 1=1 LEFT JOIN (SELECT COUNT(ID) AS NoOutstandingLoansAtStart,COUNT(DISTINCT customer_number) AS NoActiveClientsAtStart FROM QUEST_APPLICATION qa LEFT JOIN (SELECT Refrence,SUM(debit-credit) AS Bal FROM Accounts_Transactions WHERE ISNUMERIC(refrence)=1 AND account LIKE '213%' AND trxndate&lt;@fDate GROUP BY Refrence) t ON qa.id=t.refrence WHERE t.bal&gt;0 AND qa.DISBURSED_DATE&lt;@fDate) u ON 1=1 LEFT JOIN (SELECT COUNT(ID) AS NoOutstandingLoansAtEnd,COUNT(DISTINCT customer_number) AS NoActiveClientsAtEnd FROM QUEST_APPLICATION qa LEFT JOIN (SELECT Refrence,SUM(debit-credit) AS Bal FROM Accounts_Transactions WHERE ISNUMERIC(refrence)=1 AND account LIKE '213%' AND trxndate&lt;@tDate GROUP BY Refrence) t ON qa.id=t.refrence WHERE t.bal&gt;0 AND qa.DISBURSED_DATE&lt;@tDate) p ON 1=1 LEFT JOIN (SELECT COUNT(id) AS NoNewClientLoans, COUNT(DISTINCT customer_number) AS NoClients1stLoan FROM QUEST_APPLICATION qa WHERE CUSTOMER_NUMBER NOT IN (SELECT CUSTOMER_NUMBER FROM QUEST_APPLICATION q WHERE DISBURSED_DATE&lt;@fDate) AND DISBURSED_DATE&gt;=@fDate AND DISBURSED_DATE&lt;=@tDate) s ON 1=1 LEFT JOIN (SELECT COUNT(id) AS NoOldClientLoans, COUNT(DISTINCT customer_number) AS NoClients2ndLoan FROM QUEST_APPLICATION qa WHERE CUSTOMER_NUMBER IN (SELECT CUSTOMER_NUMBER FROM QUEST_APPLICATION q WHERE DISBURSED_DATE&lt;@fDate) AND DISBURSED_DATE&gt;=@fDate AND DISBURSED_DATE&lt;=@tDate) k ON 1=1" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByDateRange" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataByDateRange" GeneratorSourceName="FillByDateRange" GetMethodModifier="Public" GetMethodName="GetDataByDateRange" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataByDateRange" UserSourceName="FillByDateRange">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select * from
+(select * from (select AVG(fin_tenor) as AvgLoanTerm from QUEST_APPLICATION where DISBURSED_DATE &gt;= @fDate and DISBURSED_DATE &lt;= @tDate) lt
+left join
+(select count(id) as NoLoansDisbursed,sum(fin_amt) as ValueLoansDisbursed from QUEST_APPLICATION where DISBURSED_DATE &gt;= @fDate and DISBURSED_DATE &lt;= @tDate) dis on 1=1
+left join
+(select count(id) as TotNoClients from CUSTOMER_DETAILS) tot on 1=1
+left join
+(select count(ID) as NoOutstandingLoans,count(distinct customer_number) as NoActiveClients from QUEST_APPLICATION qa left join (select Refrence,sum(debit-credit) as Bal from Accounts_Transactions where ISNUMERIC(refrence)=1 and account like '213%' and trxndate&lt;=@tDate group by Refrence) t on qa.id=t.refrence where t.bal&gt;0 and qa.DISBURSED_DATE&gt;=@fDate and qa.DISBURSED_DATE&lt;=@tDate) o on 1=1
+left join
+(select count(ID) as NoOutstandingLoansAtStart,count(distinct customer_number) as NoActiveClientsAtStart from QUEST_APPLICATION qa left join (select Refrence,sum(debit-credit) as Bal from Accounts_Transactions where ISNUMERIC(refrence)=1 and account like '213%' and trxndate&lt;@fDate group by Refrence) t on qa.id=t.refrence where t.bal&gt;0 and qa.DISBURSED_DATE&lt;@fDate) u on 1=1
+left join
+(select count(ID) as NoOutstandingLoansAtEnd,count(distinct customer_number) as NoActiveClientsAtEnd from QUEST_APPLICATION qa left join (select Refrence,sum(debit-credit) as Bal from Accounts_Transactions where ISNUMERIC(refrence)=1 and account like '213%' and trxndate&lt;@tDate group by Refrence) t on qa.id=t.refrence where t.bal&gt;0 and qa.DISBURSED_DATE&lt;@tDate) p on 1=1
+left join
+(select count(id) as NoNewClientLoans, count(distinct customer_number) as NoClients1stLoan from QUEST_APPLICATION qa where CUSTOMER_NUMBER not in (select CUSTOMER_NUMBER from QUEST_APPLICATION q where DISBURSED_DATE&lt;@fDate) and DISBURSED_DATE&gt;=@fDate and DISBURSED_DATE&lt;=@tDate) s on 1=1
+left join
+(select count(id) as NoOldClientLoans, count(distinct customer_number) as NoClients2ndLoan from QUEST_APPLICATION qa where CUSTOMER_NUMBER in (select CUSTOMER_NUMBER from QUEST_APPLICATION q where DISBURSED_DATE&lt;@fDate) and DISBURSED_DATE&gt;=@fDate and DISBURSED_DATE&lt;=@tDate) k on 1=1)
+tbl</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="fDate" ColumnName="" DataSourceName="" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@fDate" Precision="0" Scale="0" Size="500" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="tDate" ColumnName="" DataSourceName="" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@tDate" Precision="0" Scale="0" Size="500" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="AvgLoanTerm" DataSetColumn="AvgLoanTerm" />
+              <Mapping SourceColumn="TotNoClients" DataSetColumn="TotNoClients" />
+              <Mapping SourceColumn="NoOutstandingLoans" DataSetColumn="NoOutstandingLoans" />
+              <Mapping SourceColumn="NoActiveClients" DataSetColumn="NoActiveClients" />
+              <Mapping SourceColumn="NoOutstandingLoansAtStart" DataSetColumn="NoOutstandingLoansAtStart" />
+              <Mapping SourceColumn="NoActiveClientsAtStart" DataSetColumn="NoActiveClientsAtStart" />
+              <Mapping SourceColumn="NoOutstandingLoansAtEnd" DataSetColumn="NoOutstandingLoansAtEnd" />
+              <Mapping SourceColumn="NoActiveClientsAtEnd" DataSetColumn="NoActiveClientsAtEnd" />
+              <Mapping SourceColumn="NoNewClientLoans" DataSetColumn="NoNewClientLoans" />
+              <Mapping SourceColumn="NoClients1stLoan" DataSetColumn="NoClients1stLoan" />
+              <Mapping SourceColumn="NoOldClientLoans" DataSetColumn="NoOldClientLoans" />
+              <Mapping SourceColumn="NoClients2ndLoan" DataSetColumn="NoClients2ndLoan" />
+              <Mapping SourceColumn="NoLoansDisbursed" DataSetColumn="NoLoansDisbursed" />
+              <Mapping SourceColumn="ValueLoansDisbursed" DataSetColumn="ValueLoansDisbursed" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="OutreachTableAdapter" GeneratorDataComponentClassName="OutreachTableAdapter" Name="Outreach" UserDataComponentName="OutreachTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Constring (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByDateRange" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataByDateRange" GeneratorSourceName="FillByDateRange" GetMethodModifier="Public" GetMethodName="GetDataByDateRange" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataByDateRange" UserSourceName="FillByDateRange">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select * from
+((select count(BNCH_CODE) as NoBranches from BNCH_DETAILS) b
+left join
+(select count(qa.ID) as NoOutstandingLoans,count(distinct customer_number) as NoActiveClients from QUEST_APPLICATION qa left join  BNCH_DETAILS bd on qa.BRANCH_CODE=bd.BNCH_CODE left join (select Refrence,sum(debit-credit) as Bal from Accounts_Transactions where ISNUMERIC(refrence)=1 and account like '213%' and trxndate&lt;=@tDate group by Refrence) t on qa.id=t.refrence where t.bal&gt;0 and qa.DISBURSED_DATE&gt;=@fDate and qa.DISBURSED_DATE&lt;=@tDate and bd.Location='Rural') r on 1=1
+left join
+(select count(id) as NoBorrowingGroups from CUSTOMER_DETAILS where [CUSTOMER_TYPE]='Group') g on 1=1
+left join
+(select count(qa.ID) as NoOutstandingLoansGroups,count(distinct customer_number) as NoActiveClientsGroups from QUEST_APPLICATION qa left join  BNCH_DETAILS bd on qa.BRANCH_CODE=bd.BNCH_CODE left join (select Refrence,sum(debit-credit) as Bal from Accounts_Transactions where ISNUMERIC(refrence)=1 and account like '213%' and trxndate&lt;=@tDate group by Refrence) t on qa.id=t.refrence where t.bal&gt;0 and qa.DISBURSED_DATE&gt;=@fDate and qa.DISBURSED_DATE&lt;=@tDate and CUSTOMER_TYPE='Group') gd on 1=1
+left join
+(select count(qa.ID) as NoOutstandingLoansIndiv,count(distinct customer_number) as NoActiveClientsIndiv from QUEST_APPLICATION qa left join  BNCH_DETAILS bd on qa.BRANCH_CODE=bd.BNCH_CODE left join (select Refrence,sum(debit-credit) as Bal from Accounts_Transactions where ISNUMERIC(refrence)=1 and account like '213%' and trxndate&lt;=@tDate group by Refrence) t on qa.id=t.refrence where t.bal&gt;0 and qa.DISBURSED_DATE&gt;=@fDate and qa.DISBURSED_DATE&lt;=@tDate and CUSTOMER_TYPE='Individual') i on 1=1
+left join
+(select count(id) as NoLoans10000 from QUEST_APPLICATION where FIN_AMT&gt;10000 and DISBURSED_DATE&gt;=@fDate and DISBURSED_DATE&lt;=@tDate) ten on 1=1
+left join
+(select count(id) as NoLoans20000 from QUEST_APPLICATION where FIN_AMT&gt;20000 and DISBURSED_DATE&gt;=@fDate and DISBURSED_DATE&lt;=@tDate) twe on 1=1
+left join
+(select count(id) as NoFemale from QUEST_APPLICATION where DISBURSED_DATE&gt;=@fDate and DISBURSED_DATE&lt;=@tDate and CUSTOMER_TYPE='Individual' and GENDER='F') f on 1=1
+left join
+(select count(id) as NoIndivLoans from QUEST_APPLICATION where DISBURSED_DATE&gt;=@fDate and DISBURSED_DATE&lt;=@tDate and CUSTOMER_TYPE='Individual') ii on 1=1)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="fDate" ColumnName="" DataSourceName="" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@fDate" Precision="0" Scale="0" Size="8" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="tDate" ColumnName="" DataSourceName="" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@tDate" Precision="0" Scale="0" Size="8" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="NoBranches" DataSetColumn="NoBranches" />
+              <Mapping SourceColumn="NoOutstandingLoans" DataSetColumn="NoOutstandingLoans" />
+              <Mapping SourceColumn="NoActiveClients" DataSetColumn="NoActiveClients" />
+              <Mapping SourceColumn="NoBorrowingGroups" DataSetColumn="NoBorrowingGroups" />
+              <Mapping SourceColumn="NoOutstandingLoansGroups" DataSetColumn="NoOutstandingLoansGroups" />
+              <Mapping SourceColumn="NoActiveClientsGroups" DataSetColumn="NoActiveClientsGroups" />
+              <Mapping SourceColumn="NoOutstandingLoansIndiv" DataSetColumn="NoOutstandingLoansIndiv" />
+              <Mapping SourceColumn="NoActiveClientsIndiv" DataSetColumn="NoActiveClientsIndiv" />
+              <Mapping SourceColumn="NoLoans10000" DataSetColumn="NoLoans10000" />
+              <Mapping SourceColumn="NoLoans20000" DataSetColumn="NoLoans20000" />
+              <Mapping SourceColumn="NoFemale" DataSetColumn="NoFemale" />
+              <Mapping SourceColumn="NoIndivLoans" DataSetColumn="NoIndivLoans" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PortfolioQualityTableAdapter" GeneratorDataComponentClassName="PortfolioQualityTableAdapter" Name="PortfolioQuality" UserDataComponentName="PortfolioQualityTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Constring (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByDate" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataByDate" GeneratorSourceName="FillByDate" GetMethodModifier="Public" GetMethodName="GetDataByDate" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataByDate" UserSourceName="FillByDate">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select CUSTOMER_TYPE,SUB_INDIVIDUAL,CUSTOMER_NUMBER,surname,forenames,IDNO,ADDRESS,DOB,CITY,PHONE_NO,gender,FIN_AMT,FIN_TENOR,FIN_PURPOSE,ValueArrears,noloansarrears,NoDays,DaysOverdue from QUEST_APPLICATION q join
+(select loanid,sum(t.bal) as ValueArrears,count(LOANID) as NoLoansArrears,nodays,case when NoDays&lt;0 then 'Unexpired' when NoDays&gt;0 and NoDays&lt;=30 then '1-30Days' when NoDays&gt;30 and NoDays&lt;=60 then '31-60Days' when NoDays&gt;60 and NoDays&lt;=90 then '61-90Days' when NoDays&gt;90 and NoDays&lt;=180 then '91-180Days' when NoDays&gt;180 then '&gt;180Days' end as DaysOverdue from
+((select am.LOANID,max(am.PAYMENT_DATE) as MaturityDate,datediff(day,max(am.PAYMENT_DATE),@tDate) as NoDays from QUEST_APPLICATION qa left join AMORTIZATION_SCHEDULE am on qa.id=am.LOANID group by am.loanid having max(am.payment_no)&gt;0) qa
+left join
+(select Refrence,sum(debit-credit) as Bal from Accounts_Transactions where ISNUMERIC(refrence)=1 and account in (select t.customer_number from QUEST_APPLICATION t) and trxndate&lt;@tDate group by Refrence) t on qa.LOANID=t.refrence) where t.bal&gt;0 and qa.MaturityDate&lt;@tDate group by NoDays,loanid
+) ag on q.id=ag.LOANID</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="tDate" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="Date" Direction="Input" ParameterName="@tDate" Precision="0" ProviderType="DateTime" Scale="0" Size="1024" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="CUSTOMER_TYPE" DataSetColumn="CUSTOMER_TYPE" />
+              <Mapping SourceColumn="SUB_INDIVIDUAL" DataSetColumn="SUB_INDIVIDUAL" />
+              <Mapping SourceColumn="CUSTOMER_NUMBER" DataSetColumn="CUSTOMER_NUMBER" />
+              <Mapping SourceColumn="surname" DataSetColumn="surname" />
+              <Mapping SourceColumn="forenames" DataSetColumn="forenames" />
+              <Mapping SourceColumn="IDNO" DataSetColumn="IDNO" />
+              <Mapping SourceColumn="ADDRESS" DataSetColumn="ADDRESS" />
+              <Mapping SourceColumn="DOB" DataSetColumn="DOB" />
+              <Mapping SourceColumn="CITY" DataSetColumn="CITY" />
+              <Mapping SourceColumn="PHONE_NO" DataSetColumn="PHONE_NO" />
+              <Mapping SourceColumn="gender" DataSetColumn="gender" />
+              <Mapping SourceColumn="FIN_AMT" DataSetColumn="FIN_AMT" />
+              <Mapping SourceColumn="FIN_TENOR" DataSetColumn="FIN_TENOR" />
+              <Mapping SourceColumn="FIN_PURPOSE" DataSetColumn="FIN_PURPOSE" />
+              <Mapping SourceColumn="ValueArrears" DataSetColumn="ValueArrears" />
+              <Mapping SourceColumn="noloansarrears" DataSetColumn="noloansarrears" />
+              <Mapping SourceColumn="NoDays" DataSetColumn="NoDays" />
+              <Mapping SourceColumn="DaysOverdue" DataSetColumn="DaysOverdue" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="MonthlyInstalmentTableAdapter" GeneratorDataComponentClassName="MonthlyInstalmentTableAdapter" Name="MonthlyInstalment" UserDataComponentName="MonthlyInstalmentTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Constring (Web.config)" DbObjectName="NBSCredit.dbo.sp_getMonthlyInstalment" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="FillByParameters" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataByParameters" GeneratorSourceName="FillByParameters" GetMethodModifier="Public" GetMethodName="GetDataByParameters" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataByParameters" UserSourceName="FillByParameters">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                    <CommandText>dbo.sp_getMonthlyInstalment</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@intMonths" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="numeric" DbType="Decimal" Direction="Input" ParameterName="@dblPrincipal" Precision="28" ProviderType="Decimal" Scale="16" Size="13" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="numeric" DbType="Decimal" Direction="Input" ParameterName="@dblAdmin" Precision="28" ProviderType="Decimal" Scale="16" Size="13" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="nvarchar" DbType="String" Direction="Input" ParameterName="@ProductType" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="numeric" DbType="Decimal" Direction="Input" ParameterName="@dblRate" Precision="28" ProviderType="Decimal" Scale="16" Size="13" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID1" DataSetColumn="Instalment" />
+              <Mapping SourceColumn="Instalment" DataSetColumn="Instalment" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsPortfolioManagement" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="dsPortfolioManagement" msprop:Generator_UserDSName="dsPortfolioManagement">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PortfolioActivity" msprop:Generator_TableClassName="PortfolioActivityDataTable" msprop:Generator_TableVarName="tablePortfolioActivity" msprop:Generator_RowChangedName="PortfolioActivityRowChanged" msprop:Generator_TablePropName="PortfolioActivity" msprop:Generator_RowDeletingName="PortfolioActivityRowDeleting" msprop:Generator_RowChangingName="PortfolioActivityRowChanging" msprop:Generator_RowEvHandlerName="PortfolioActivityRowChangeEventHandler" msprop:Generator_RowDeletedName="PortfolioActivityRowDeleted" msprop:Generator_RowClassName="PortfolioActivityRow" msprop:Generator_UserTableName="PortfolioActivity" msprop:Generator_RowEvArgName="PortfolioActivityRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AvgLoanTerm" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnAvgLoanTerm" msprop:Generator_ColumnPropNameInRow="AvgLoanTerm" msprop:Generator_ColumnPropNameInTable="AvgLoanTermColumn" msprop:Generator_UserColumnName="AvgLoanTerm" type="xs:decimal" default="0" minOccurs="0" />
+              <xs:element name="TotNoClients" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTotNoClients" msprop:Generator_ColumnPropNameInRow="TotNoClients" msprop:Generator_ColumnPropNameInTable="TotNoClientsColumn" msprop:Generator_UserColumnName="TotNoClients" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoOutstandingLoans" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoOutstandingLoans" msprop:Generator_ColumnPropNameInRow="NoOutstandingLoans" msprop:Generator_ColumnPropNameInTable="NoOutstandingLoansColumn" msprop:Generator_UserColumnName="NoOutstandingLoans" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoActiveClients" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoActiveClients" msprop:Generator_ColumnPropNameInRow="NoActiveClients" msprop:Generator_ColumnPropNameInTable="NoActiveClientsColumn" msprop:Generator_UserColumnName="NoActiveClients" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoOutstandingLoansAtStart" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoOutstandingLoansAtStart" msprop:Generator_ColumnPropNameInRow="NoOutstandingLoansAtStart" msprop:Generator_ColumnPropNameInTable="NoOutstandingLoansAtStartColumn" msprop:Generator_UserColumnName="NoOutstandingLoansAtStart" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoActiveClientsAtStart" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoActiveClientsAtStart" msprop:Generator_ColumnPropNameInRow="NoActiveClientsAtStart" msprop:Generator_ColumnPropNameInTable="NoActiveClientsAtStartColumn" msprop:Generator_UserColumnName="NoActiveClientsAtStart" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoOutstandingLoansAtEnd" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoOutstandingLoansAtEnd" msprop:Generator_ColumnPropNameInRow="NoOutstandingLoansAtEnd" msprop:Generator_ColumnPropNameInTable="NoOutstandingLoansAtEndColumn" msprop:Generator_UserColumnName="NoOutstandingLoansAtEnd" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoActiveClientsAtEnd" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoActiveClientsAtEnd" msprop:Generator_ColumnPropNameInRow="NoActiveClientsAtEnd" msprop:Generator_ColumnPropNameInTable="NoActiveClientsAtEndColumn" msprop:Generator_UserColumnName="NoActiveClientsAtEnd" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoNewClientLoans" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoNewClientLoans" msprop:Generator_ColumnPropNameInRow="NoNewClientLoans" msprop:Generator_ColumnPropNameInTable="NoNewClientLoansColumn" msprop:Generator_UserColumnName="NoNewClientLoans" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoClients1stLoan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoClients1stLoan" msprop:Generator_ColumnPropNameInRow="NoClients1stLoan" msprop:Generator_ColumnPropNameInTable="NoClients1stLoanColumn" msprop:Generator_UserColumnName="NoClients1stLoan" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoOldClientLoans" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoOldClientLoans" msprop:Generator_ColumnPropNameInRow="NoOldClientLoans" msprop:Generator_ColumnPropNameInTable="NoOldClientLoansColumn" msprop:Generator_UserColumnName="NoOldClientLoans" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoClients2ndLoan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoClients2ndLoan" msprop:Generator_ColumnPropNameInRow="NoClients2ndLoan" msprop:Generator_ColumnPropNameInTable="NoClients2ndLoanColumn" msprop:Generator_UserColumnName="NoClients2ndLoan" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="NoLoansDisbursed" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoLoansDisbursed" msprop:Generator_ColumnPropNameInRow="NoLoansDisbursed" msprop:Generator_ColumnPropNameInTable="NoLoansDisbursedColumn" msprop:Generator_UserColumnName="NoLoansDisbursed" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="ValueLoansDisbursed" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnValueLoansDisbursed" msprop:Generator_ColumnPropNameInRow="ValueLoansDisbursed" msprop:Generator_ColumnPropNameInTable="ValueLoansDisbursedColumn" msprop:Generator_UserColumnName="ValueLoansDisbursed" type="xs:decimal" default="0" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Outreach" msprop:Generator_TableClassName="OutreachDataTable" msprop:Generator_TableVarName="tableOutreach" msprop:Generator_TablePropName="Outreach" msprop:Generator_RowDeletingName="OutreachRowDeleting" msprop:Generator_RowChangingName="OutreachRowChanging" msprop:Generator_RowEvHandlerName="OutreachRowChangeEventHandler" msprop:Generator_RowDeletedName="OutreachRowDeleted" msprop:Generator_UserTableName="Outreach" msprop:Generator_RowChangedName="OutreachRowChanged" msprop:Generator_RowEvArgName="OutreachRowChangeEvent" msprop:Generator_RowClassName="OutreachRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NoBranches" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoBranches" msprop:Generator_ColumnPropNameInRow="NoBranches" msprop:Generator_ColumnPropNameInTable="NoBranchesColumn" msprop:Generator_UserColumnName="NoBranches" type="xs:int" minOccurs="0" />
+              <xs:element name="NoOutstandingLoans" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoOutstandingLoans" msprop:Generator_ColumnPropNameInRow="NoOutstandingLoans" msprop:Generator_ColumnPropNameInTable="NoOutstandingLoansColumn" msprop:Generator_UserColumnName="NoOutstandingLoans" type="xs:int" minOccurs="0" />
+              <xs:element name="NoActiveClients" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoActiveClients" msprop:Generator_ColumnPropNameInRow="NoActiveClients" msprop:Generator_ColumnPropNameInTable="NoActiveClientsColumn" msprop:Generator_UserColumnName="NoActiveClients" type="xs:int" minOccurs="0" />
+              <xs:element name="NoBorrowingGroups" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoBorrowingGroups" msprop:Generator_ColumnPropNameInRow="NoBorrowingGroups" msprop:Generator_ColumnPropNameInTable="NoBorrowingGroupsColumn" msprop:Generator_UserColumnName="NoBorrowingGroups" type="xs:int" minOccurs="0" />
+              <xs:element name="NoOutstandingLoansGroups" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoOutstandingLoansGroups" msprop:Generator_ColumnPropNameInRow="NoOutstandingLoansGroups" msprop:Generator_ColumnPropNameInTable="NoOutstandingLoansGroupsColumn" msprop:Generator_UserColumnName="NoOutstandingLoansGroups" type="xs:int" minOccurs="0" />
+              <xs:element name="NoActiveClientsGroups" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoActiveClientsGroups" msprop:Generator_ColumnPropNameInRow="NoActiveClientsGroups" msprop:Generator_ColumnPropNameInTable="NoActiveClientsGroupsColumn" msprop:Generator_UserColumnName="NoActiveClientsGroups" type="xs:int" minOccurs="0" />
+              <xs:element name="NoOutstandingLoansIndiv" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoOutstandingLoansIndiv" msprop:Generator_ColumnPropNameInRow="NoOutstandingLoansIndiv" msprop:Generator_ColumnPropNameInTable="NoOutstandingLoansIndivColumn" msprop:Generator_UserColumnName="NoOutstandingLoansIndiv" type="xs:int" minOccurs="0" />
+              <xs:element name="NoActiveClientsIndiv" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoActiveClientsIndiv" msprop:Generator_ColumnPropNameInRow="NoActiveClientsIndiv" msprop:Generator_ColumnPropNameInTable="NoActiveClientsIndivColumn" msprop:Generator_UserColumnName="NoActiveClientsIndiv" type="xs:int" minOccurs="0" />
+              <xs:element name="NoLoans10000" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoLoans10000" msprop:Generator_ColumnPropNameInRow="NoLoans10000" msprop:Generator_ColumnPropNameInTable="NoLoans10000Column" msprop:Generator_UserColumnName="NoLoans10000" type="xs:int" minOccurs="0" />
+              <xs:element name="NoLoans20000" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoLoans20000" msprop:Generator_ColumnPropNameInRow="NoLoans20000" msprop:Generator_ColumnPropNameInTable="NoLoans20000Column" msprop:Generator_UserColumnName="NoLoans20000" type="xs:int" minOccurs="0" />
+              <xs:element name="NoFemale" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoFemale" msprop:Generator_ColumnPropNameInRow="NoFemale" msprop:Generator_ColumnPropNameInTable="NoFemaleColumn" msprop:Generator_UserColumnName="NoFemale" type="xs:int" minOccurs="0" />
+              <xs:element name="NoIndivLoans" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoIndivLoans" msprop:Generator_ColumnPropNameInRow="NoIndivLoans" msprop:Generator_ColumnPropNameInTable="NoIndivLoansColumn" msprop:Generator_UserColumnName="NoIndivLoans" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PortfolioQuality" msprop:Generator_TableClassName="PortfolioQualityDataTable" msprop:Generator_TableVarName="tablePortfolioQuality" msprop:Generator_TablePropName="PortfolioQuality" msprop:Generator_RowDeletingName="PortfolioQualityRowDeleting" msprop:Generator_RowChangingName="PortfolioQualityRowChanging" msprop:Generator_RowEvHandlerName="PortfolioQualityRowChangeEventHandler" msprop:Generator_RowDeletedName="PortfolioQualityRowDeleted" msprop:Generator_UserTableName="PortfolioQuality" msprop:Generator_RowChangedName="PortfolioQualityRowChanged" msprop:Generator_RowEvArgName="PortfolioQualityRowChangeEvent" msprop:Generator_RowClassName="PortfolioQualityRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CUSTOMER_TYPE" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER_TYPE" msprop:Generator_ColumnPropNameInRow="CUSTOMER_TYPE" msprop:Generator_ColumnPropNameInTable="CUSTOMER_TYPEColumn" msprop:Generator_UserColumnName="CUSTOMER_TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SUB_INDIVIDUAL" msprop:Generator_ColumnVarNameInTable="columnSUB_INDIVIDUAL" msprop:Generator_ColumnPropNameInRow="SUB_INDIVIDUAL" msprop:Generator_ColumnPropNameInTable="SUB_INDIVIDUALColumn" msprop:Generator_UserColumnName="SUB_INDIVIDUAL" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_NUMBER" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER_NUMBER" msprop:Generator_ColumnPropNameInRow="CUSTOMER_NUMBER" msprop:Generator_ColumnPropNameInTable="CUSTOMER_NUMBERColumn" msprop:Generator_UserColumnName="CUSTOMER_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="surname" msprop:Generator_ColumnVarNameInTable="columnsurname" msprop:Generator_ColumnPropNameInRow="surname" msprop:Generator_ColumnPropNameInTable="surnameColumn" msprop:Generator_UserColumnName="surname" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="forenames" msprop:Generator_ColumnVarNameInTable="columnforenames" msprop:Generator_ColumnPropNameInRow="forenames" msprop:Generator_ColumnPropNameInTable="forenamesColumn" msprop:Generator_UserColumnName="forenames" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IDNO" msprop:Generator_ColumnVarNameInTable="columnIDNO" msprop:Generator_ColumnPropNameInRow="IDNO" msprop:Generator_ColumnPropNameInTable="IDNOColumn" msprop:Generator_UserColumnName="IDNO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ADDRESS" msprop:Generator_ColumnVarNameInTable="columnADDRESS" msprop:Generator_ColumnPropNameInRow="ADDRESS" msprop:Generator_ColumnPropNameInTable="ADDRESSColumn" msprop:Generator_UserColumnName="ADDRESS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOB" msprop:Generator_ColumnVarNameInTable="columnDOB" msprop:Generator_ColumnPropNameInRow="DOB" msprop:Generator_ColumnPropNameInTable="DOBColumn" msprop:Generator_UserColumnName="DOB" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CITY" msprop:Generator_ColumnVarNameInTable="columnCITY" msprop:Generator_ColumnPropNameInRow="CITY" msprop:Generator_ColumnPropNameInTable="CITYColumn" msprop:Generator_UserColumnName="CITY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PHONE_NO" msprop:Generator_ColumnVarNameInTable="columnPHONE_NO" msprop:Generator_ColumnPropNameInRow="PHONE_NO" msprop:Generator_ColumnPropNameInTable="PHONE_NOColumn" msprop:Generator_UserColumnName="PHONE_NO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="gender" msprop:Generator_ColumnVarNameInTable="columngender" msprop:Generator_ColumnPropNameInRow="gender" msprop:Generator_ColumnPropNameInTable="genderColumn" msprop:Generator_UserColumnName="gender" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FIN_AMT" msprop:Generator_ColumnVarNameInTable="columnFIN_AMT" msprop:Generator_ColumnPropNameInRow="FIN_AMT" msprop:Generator_ColumnPropNameInTable="FIN_AMTColumn" msprop:Generator_UserColumnName="FIN_AMT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FIN_TENOR" msprop:Generator_ColumnVarNameInTable="columnFIN_TENOR" msprop:Generator_ColumnPropNameInRow="FIN_TENOR" msprop:Generator_ColumnPropNameInTable="FIN_TENORColumn" msprop:Generator_UserColumnName="FIN_TENOR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FIN_PURPOSE" msprop:Generator_ColumnVarNameInTable="columnFIN_PURPOSE" msprop:Generator_ColumnPropNameInRow="FIN_PURPOSE" msprop:Generator_ColumnPropNameInTable="FIN_PURPOSEColumn" msprop:Generator_UserColumnName="FIN_PURPOSE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ValueArrears" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnValueArrears" msprop:Generator_ColumnPropNameInRow="ValueArrears" msprop:Generator_ColumnPropNameInTable="ValueArrearsColumn" msprop:Generator_UserColumnName="ValueArrears" type="xs:decimal" minOccurs="0" />
+              <xs:element name="noloansarrears" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnoloansarrears" msprop:Generator_ColumnPropNameInRow="noloansarrears" msprop:Generator_ColumnPropNameInTable="noloansarrearsColumn" msprop:Generator_UserColumnName="noloansarrears" type="xs:int" minOccurs="0" />
+              <xs:element name="NoDays" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNoDays" msprop:Generator_ColumnPropNameInRow="NoDays" msprop:Generator_ColumnPropNameInTable="NoDaysColumn" msprop:Generator_UserColumnName="NoDays" type="xs:int" minOccurs="0" />
+              <xs:element name="DaysOverdue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDaysOverdue" msprop:Generator_ColumnPropNameInRow="DaysOverdue" msprop:Generator_ColumnPropNameInTable="DaysOverdueColumn" msprop:Generator_UserColumnName="DaysOverdue" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MonthlyInstalment" msprop:Generator_TableClassName="MonthlyInstalmentDataTable" msprop:Generator_TableVarName="tableMonthlyInstalment" msprop:Generator_TablePropName="MonthlyInstalment" msprop:Generator_RowDeletingName="MonthlyInstalmentRowDeleting" msprop:Generator_RowChangingName="MonthlyInstalmentRowChanging" msprop:Generator_RowEvHandlerName="MonthlyInstalmentRowChangeEventHandler" msprop:Generator_RowDeletedName="MonthlyInstalmentRowDeleted" msprop:Generator_UserTableName="MonthlyInstalment" msprop:Generator_RowChangedName="MonthlyInstalmentRowChanged" msprop:Generator_RowEvArgName="MonthlyInstalmentRowChangeEvent" msprop:Generator_RowClassName="MonthlyInstalmentRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Instalment" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msdata:Caption="ID1" msprop:Generator_ColumnVarNameInTable="columnInstalment" msprop:Generator_ColumnPropNameInRow="Instalment" msprop:Generator_ColumnPropNameInTable="InstalmentColumn" msprop:Generator_UserColumnName="Instalment" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
